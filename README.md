@@ -4,15 +4,18 @@ Ver Dockerfile para la creacion y despliegue de la App
 
 ## Formatear y montar un volumen en un directorio a elección
 
-Para crear y montar un volumen en un directorio a elección, usa el siguiente comando:
+Para crear y montar un volumen en un directorio a elección, hacemos los siguientes pasos:
 
 ```
-docker volume create mi_appapache
+sudo mkfs.ext4 /dev/sdX
+sudo mkdir -p /mnt/mi_volumen
+sudo mount /dev/sdX /mnt/mi_volumen
 ```
 
-## Para lanzar un contenedor utilizando la imagen 'ubuntu/apache2' y montar el directorio /var/www/html con el directorio asociado al volumen creado, usa el siguiente comando:
+## Para lanzar un contenedor utilizando la imagen 'ubuntu/apache2' y montar el directorio /var/www/html con el directorio asociado al volumen creado, usamos los siguientes comando:
 
 ```
+docker pull ubuntu/apache2
 docker run -d -p 8080:80 -v mi_appapache:/var/www/html --name app-apache ubuntu/apache2
 ```
 
@@ -27,8 +30,7 @@ docker-compose up -d
 ```
 git clone https://github.com/CharlosBrother/Final.git
 cd Final
-git checkout main
-cp index.html /var/lib/docker/volumes/mi_appapache/_data/
+sudo cp index.html /mnt/mi_volumen/
 ```
 
 ## Configuración del Proxy Reverso (Nginx)
